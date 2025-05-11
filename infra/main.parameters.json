@@ -10,15 +10,6 @@
       },
       "principalId": {
         "value": "${AZURE_PRINCIPAL_ID}"
-      },
-      "webAppExists": {
-        "value": "${SERVICE_WEB_RESOURCE_EXISTS=false}"
-      },
-      "postgresPassword": {
-        "value": "$(secretOrRandomPassword ${AZURE_KEY_VAULT_NAME} DBPASS)"
-      },
-      "flaskSecret": {
-        "value": "$(secretOrRandomPassword ${AZURE_KEY_VAULT_NAME} FLASKSECRET)"
       }
     }
   }

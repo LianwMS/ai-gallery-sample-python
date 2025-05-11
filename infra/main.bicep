@@ -13,7 +13,8 @@ param location string
 @description('Id of the user or app to assign application roles')
 param principalId string = ''
 
-param webAppExists bool = false
+param backendExists bool = false
+param frontendExists bool = false
 
 var resourceToken = toLower(uniqueString(subscription().id, name, location))
 var tags = { 'azd-env-name': name }
@@ -35,7 +36,7 @@ module keyVault './core/security/keyvault.bicep' = {
     location: location
     tags: tags
   }
-}
+} 
 
 // Give the principal access to KeyVault
 module principalKeyVaultAccess './core/security/keyvault-access.bicep' = {
@@ -82,7 +83,7 @@ module backend 'backend.bicep' = {
     identityName: '${prefix}-id-backend'
     containerAppsEnvironmentName: containerApps.outputs.environmentName
     containerRegistryName: containerApps.outputs.registryName
-    exists: webAppExists
+    exists: backendExists
   }
 }
 
@@ -107,11 +108,9 @@ module frontend 'frontend.bicep' = {
     identityName: '${prefix}-id-frontend'
     containerAppsEnvironmentName: containerApps.outputs.environmentName
     containerRegistryName: containerApps.outputs.registryName
-    exists: webAppExists
+    exists: frontendExists
   }
 }
-
-
 
 output AZURE_LOCATION string = location
 output AZURE_CONTAINER_ENVIRONMENT_NAME string = containerApps.outputs.environmentName
