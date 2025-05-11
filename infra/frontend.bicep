@@ -25,7 +25,7 @@ module frontend 'core/host/container-app-upsert.bicep' = {
     containerAppsEnvironmentName: containerAppsEnvironmentName
     containerRegistryName: containerRegistryName
     env: []
-    targetPort: 50505
+    targetPort: 8000
     secrets: [ ]
   }
 }
